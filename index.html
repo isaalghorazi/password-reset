@@ -161,8 +161,25 @@
         
         // Get token from URL
         const urlParams = new URLSearchParams(window.location.search);
-        const tokenHash = urlParams.get('token_hash');
-        const type = urlParams.get('type');
+        let tokenHash = urlParams.get('token_hash');
+        let type = urlParams.get('type');
+        const confirmationUrl = urlParams.get('confirmation_url');
+
+        // If wrapped inside confirmation_url, extract inner params
+        if (!tokenHash && confirmationUrl) {
+            try {
+                const inner = new URL(confirmationUrl);
+                tokenHash = inner.searchParams.get('token_hash') || tokenHash;
+                type = type || inner.searchParams.get('type');
+            } catch (_) {}
+        }
+
+        // Fallback: allow passing params in the hash fragment
+        if (!tokenHash && window.location.hash) {
+            const hashParams = new URLSearchParams(window.location.hash.slice(1));
+            tokenHash = hashParams.get('token_hash') || tokenHash;
+            type = type || hashParams.get('type');
+        }
         
         const loading = document.getElementById('loading');
         const expired = document.getElementById('expired');
