@@ -128,8 +128,8 @@
         </div>
         
         <div id="expired" style="display: none;">
-            <p class="error">This reset link has expired or is invalid. Please request a new password reset email.</p>
-            <a href="https://myybwrtgtzezsyuskhiw.supabase.co/auth/v1/recover" style="color: #8fb4ff;">Request new reset email</a>
+            <p class="error">This reset link has expired or is invalid.</p>
+            <p class="muted">Open the app and use “Forgot password” to request a new reset email.</p>
         </div>
         
         <div id="form-container" style="display: none;">
@@ -266,7 +266,7 @@
                             <h2 style="margin-bottom: 8px;">Link Expired</h2>
                             <p>This reset link has expired or was already used.</p>
                         </div>
-                        <p><a href="${SUPABASE_URL}/auth/v1/recover" style="color: #8fb4ff;">Request a new reset email</a></p>
+                        <p class="muted">Open the app and use “Forgot password” to request a new reset email.</p>
                     `;
                 } else {
                     errorDiv.textContent = error.message || 'An error occurred. Please try again.';
